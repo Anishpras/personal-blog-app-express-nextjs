@@ -36,7 +36,7 @@ router.get("/", async (req, res) => {
   try {
     const posts = await prisma.post.findMany({
       where: author ? { authorId: author.toString() } : {},
-      include: { author: { select: { email: true } } },
+      include: { author: { select: { email: true, id: true } } },
       orderBy: { createdAt: "desc" },
     });
 
@@ -54,7 +54,7 @@ router.get("/:id", async (req, res) => {
   try {
     const post = await prisma.post.findUnique({
       where: { id: id },
-      include: { author: { select: { email: true } } },
+      include: { author: { select: { email: true, id: true } } },
     });
 
     if (!post) {

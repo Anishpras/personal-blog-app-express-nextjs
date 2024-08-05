@@ -1,4 +1,4 @@
-import { Post, UserWithToken } from "@/types";
+import { Author, Post, UserWithToken } from "@/types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 console.log(API_URL);
@@ -67,4 +67,39 @@ export async function signUp(
     method: "POST",
     body: JSON.stringify({ email, password }),
   });
+}
+
+export async function updatePost(
+  id: string,
+  title: string,
+  content: string,
+  token: string
+): Promise<Post> {
+  return fetchAPI(`/posts/${id}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ title, content }),
+  });
+}
+
+export async function deletePost(
+  id: string,
+  token: string
+): Promise<{ message: string }> {
+  return fetchAPI(`/posts/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+export async function getAuthors(): Promise<Author[]> {
+  return fetchAPI("/authors");
+}
+
+export async function getPostsByAuthor(authorId: string): Promise<Post[]> {
+  return fetchAPI(`/posts?author=${authorId}`);
 }

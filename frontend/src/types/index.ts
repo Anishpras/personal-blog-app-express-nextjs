@@ -2,7 +2,10 @@ export interface User {
   id: string;
   email: string;
 }
-
+export interface Author {
+  email: string;
+  id: string;
+}
 export interface UserWithToken {
   user: User;
   token: string;

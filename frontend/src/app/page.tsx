@@ -1,14 +1,64 @@
-import { getPosts } from "@/lib/api";
+"use client";
+
+import { useState, useEffect } from "react";
+import { getPosts, getAuthors, getPostsByAuthor } from "@/lib/api";
 import { Post } from "@/components/Post";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Author, Post as PostType } from "@/types";
 
-export const revalidate = 60; // Revalidate this page every 60 seconds
+export default function HomePage() {
+  const [posts, setPosts] = useState<PostType[]>([]);
+  const [authors, setAuthors] = useState<Author[]>([]);
+  const [selectedAuthor, setSelectedAuthor] = useState("");
 
-export default async function HomePage() {
-  const posts = await getPosts();
+  useEffect(() => {
+    fetchPosts();
+    fetchAuthors();
+  }, []);
+
+  const fetchPosts = async () => {
+    const fetchedPosts = await getPosts();
+    setPosts(fetchedPosts);
+  };
+
+  const fetchAuthors = async () => {
+    const fetchedAuthors = await getAuthors();
+    setAuthors(fetchedAuthors);
+  };
+
+  const handleAuthorChange = async (authorId: string) => {
+    setSelectedAuthor(authorId);
+    if (authorId) {
+      const authorPosts = await getPostsByAuthor(authorId);
+      setPosts(authorPosts);
+    } else {
+      fetchPosts();
+    }
+  };
 
   return (
     <div className="container mx-auto mt-8">
       <h1 className="text-3xl font-bold mb-4">Latest Blog Posts</h1>
+      <div className="mb-4">
+        <Select onValueChange={handleAuthorChange} value={selectedAuthor}>
+          <SelectTrigger className="w-[200px]">
+            <SelectValue placeholder="Filter by Author" />
+          </SelectTrigger>
+          <SelectContent>
+            {authors.map((author) => (
+              <SelectItem key={author.id} value={author.id}>
+                {author.email}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
       {posts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {posts?.map((post, index) => (
@@ -19,7 +69,7 @@ export default async function HomePage() {
                 animationDelay: `${index * 0.1}s`,
                 animationFillMode: "forwards",
               }}>
-              <Post {...post} />
+              <Post {...post} onUpdate={fetchPosts} />
             </div>
           ))}
         </div>

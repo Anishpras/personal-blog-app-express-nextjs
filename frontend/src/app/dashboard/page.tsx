@@ -32,7 +32,6 @@ export default function Dashboard() {
     try {
       const posts = await getUserPosts(session?.user?.id!);
       setUserPosts(posts);
-      console.log(posts);
     } catch (err) {
       setError("Failed to fetch user posts");
     }
@@ -95,7 +94,11 @@ export default function Dashboard() {
           ) : (
             <div className="space-y-4">
               {userPosts.map((post) => (
-                <Post key={post.id} {...post} />
+                <Post
+                  key={post.id}
+                  {...post}
+                  onUpdate={() => fetchUserPosts()}
+                />
               ))}
             </div>
           )}
