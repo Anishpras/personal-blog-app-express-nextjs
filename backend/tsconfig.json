@@ -6,5 +6,6 @@
     "esModuleInterop": true,
     "outDir": "./dist"
   },
-  "include": ["backend/src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }
