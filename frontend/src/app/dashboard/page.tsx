@@ -20,7 +20,6 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  console.log(content);
   useEffect(() => {
     if (session?.user.id) {
       fetchUserPosts();
@@ -49,6 +48,7 @@ export default function Dashboard() {
         title,
         content,
         session?.user?.id!,
+        //@ts-expect-error - accessToken is defined
         session?.user?.accessToken!
       );
       setTitle("");
