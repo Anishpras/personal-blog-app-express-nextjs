@@ -5,11 +5,12 @@ import { useSession } from "next-auth/react";
 import { createPost, getUserPosts } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Post } from "@/components/Post";
 import { ErrorMessage } from "@/components/ErrorMessage";
 import { Loading } from "@/components/Loading";
 import { Post as PostType } from "@/types";
+import RichTextEditor from "@/components/RichTextEditor";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
@@ -19,6 +20,7 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  console.log(content);
   useEffect(() => {
     if (session?.user.id) {
       fetchUserPosts();
@@ -31,6 +33,7 @@ export default function Dashboard() {
     try {
       const posts = await getUserPosts(session?.user?.id!);
       setUserPosts(posts);
+      console.log(posts);
     } catch (err) {
       setError("Failed to fetch user posts");
     }
@@ -65,28 +68,26 @@ export default function Dashboard() {
     <div className="container mx-auto mt-8">
       <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
       {error && <ErrorMessage message={error} />}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <h2 className="text-2xl font-semibold mb-4">Create New Post</h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <Input
-              placeholder="Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-            />
-            <Textarea
-              placeholder="Content"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              required
-              rows={6}
-            />
-            <Button type="submit" disabled={isLoading}>
-              {isLoading ? "Creating..." : "Create Post"}
-            </Button>
-          </form>
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>Create New Post</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <Input
+                placeholder="Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+              />
+              <RichTextEditor content={content} onChange={setContent} />
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? "Creating..." : "Create Post"}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
         <div>
           <h2 className="text-2xl font-semibold mb-4">Your Posts</h2>
           {isLoading ? (
