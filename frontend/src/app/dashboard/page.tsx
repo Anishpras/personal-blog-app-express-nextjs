@@ -29,7 +29,7 @@ export default function Dashboard() {
     setIsLoading(true);
     setError(null);
     try {
-      const posts = await getUserPosts(session!.user.id);
+      const posts = await getUserPosts(session?.user?.id!);
       setUserPosts(posts);
     } catch (err) {
       setError("Failed to fetch user posts");
@@ -42,7 +42,12 @@ export default function Dashboard() {
     setIsLoading(true);
     setError(null);
     try {
-      await createPost(title, content, session?.user?.id);
+      await createPost(
+        title,
+        content,
+        session?.user?.id!,
+        session?.user?.accessToken!
+      );
       setTitle("");
       setContent("");
       fetchUserPosts();

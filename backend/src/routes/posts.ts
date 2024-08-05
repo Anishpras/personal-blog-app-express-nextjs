@@ -7,14 +7,18 @@ const prisma = new PrismaClient();
 
 // Create a new post
 router.post("/", auth, async (req: any, res) => {
-  const { title, content } = req.body;
+  const { title, content, authorId } = req.body;
 
   try {
     const post = await prisma.post.create({
       data: {
         title,
         content,
-        authorId: req.userId,
+        author: {
+          connect: {
+            id: authorId,
+          },
+        },
       },
     });
 
@@ -31,7 +35,7 @@ router.get("/", async (req, res) => {
 
   try {
     const posts = await prisma.post.findMany({
-      where: author ? { authorId: Number(author) } : {},
+      where: author ? { authorId: author.toString() } : {},
       include: { author: { select: { email: true } } },
       orderBy: { createdAt: "desc" },
     });
@@ -49,7 +53,7 @@ router.get("/:id", async (req, res) => {
 
   try {
     const post = await prisma.post.findUnique({
-      where: { id: Number(id) },
+      where: { id: id },
       include: { author: { select: { email: true } } },
     });
 
@@ -71,7 +75,7 @@ router.put("/:id", auth, async (req: any, res) => {
 
   try {
     const post = await prisma.post.findUnique({
-      where: { id: Number(id) },
+      where: { id: id },
     });
 
     if (!post) {
@@ -85,7 +89,7 @@ router.put("/:id", auth, async (req: any, res) => {
     }
 
     const updatedPost = await prisma.post.update({
-      where: { id: Number(id) },
+      where: { id: id },
       data: { title, content },
     });
 
@@ -102,7 +106,7 @@ router.delete("/:id", auth, async (req: any, res) => {
 
   try {
     const post = await prisma.post.findUnique({
-      where: { id: Number(id) },
+      where: { id: id },
     });
 
     if (!post) {
@@ -116,7 +120,7 @@ router.delete("/:id", auth, async (req: any, res) => {
     }
 
     await prisma.post.delete({
-      where: { id: Number(id) },
+      where: { id: id },
     });
 
     res.json({ message: "Post deleted successfully" });

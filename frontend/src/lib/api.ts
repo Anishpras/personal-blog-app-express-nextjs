@@ -1,7 +1,8 @@
-import { Post, User } from "@/types";
+import { Post, UserWithToken } from "@/types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 console.log(API_URL);
+
 async function fetchAPI(endpoint: string, options: RequestInit = {}) {
   const url = `${API_URL}${endpoint}`;
   const response = await fetch(url, {
@@ -30,14 +31,16 @@ export async function getPostById(id: string): Promise<Post> {
 export async function createPost(
   title: string,
   content: string,
+  authorId: string,
   token: string
 ): Promise<Post> {
+  console.log("createPost", title, content, authorId, token);
   return fetchAPI("/posts", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ title, content }),
+    body: JSON.stringify({ title, content, authorId }),
   });
 }
 
@@ -45,14 +48,22 @@ export async function getUserPosts(userId: string): Promise<Post[]> {
   return fetchAPI(`/posts?author=${userId}`);
 }
 
-export async function login(email: string, password: string): Promise<User> {
+export async function login(
+  email: string,
+  password: string
+): Promise<UserWithToken> {
   return fetchAPI("/auth/login", {
     method: "POST",
     body: JSON.stringify({ email, password }),
   });
 }
 
-export async function signUp(email: string, password: string): Promise<User> {
+export async function signUp(
+  email: string,
+  password: string
+): Promise<{
+  message: string;
+}> {
   return fetchAPI("/auth/signup", {
     method: "POST",
     body: JSON.stringify({ email, password }),

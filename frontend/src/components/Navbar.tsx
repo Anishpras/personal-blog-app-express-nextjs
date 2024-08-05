@@ -28,7 +28,9 @@ export function Navbar() {
               </Link>
 
               <Link href="/signup">
-                <Button variant="outline">Sign Up</Button>
+                <Button variant="outline" className="text-black">
+                  Sign Up
+                </Button>
               </Link>
             </>
           )}
