@@ -4,9 +4,11 @@ import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import TextAlign from "@tiptap/extension-text-align";
 import Heading from "@tiptap/extension-heading";
+import ListItem from "@tiptap/extension-list-item";
+import { Color } from "@tiptap/extension-color";
+import TextStyle from "@tiptap/extension-text-style";
 import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
-import ListItem from "@tiptap/extension-list-item";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -25,7 +27,10 @@ import {
   AlignRight,
   Link as LinkIcon,
   ChevronDown,
+  AlignJustify,
 } from "lucide-react";
+
+type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 
 interface MenuBarProps {
   editor: Editor | null;
@@ -53,111 +58,120 @@ const MenuBar: React.FC<MenuBarProps> = ({ editor }) => {
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-1 mb-2 p-1 border-b">
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="sm" className="h-8 px-2 text-base">
-            Heading <ChevronDown className="ml-1 h-4 w-4" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem
-            onSelect={() =>
-              editor.chain().focus().toggleHeading({ level: 1 }).run()
-            }>
-            Heading 1
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onSelect={() =>
-              editor.chain().focus().toggleHeading({ level: 2 }).run()
-            }>
-            Heading 2
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onSelect={() =>
-              editor.chain().focus().toggleHeading({ level: 3 }).run()
-            }>
-            Heading 3
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={() => editor.chain().focus().toggleBold().run()}
-        className={`h-8 px-2 ${editor.isActive("bold") ? "bg-gray-200" : ""}`}>
-        <Bold className="h-4 w-4" />
-      </Button>
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={() => editor.chain().focus().toggleItalic().run()}
-        className={`h-8 px-2 ${
-          editor.isActive("italic") ? "bg-gray-200" : ""
-        }`}>
-        <Italic className="h-4 w-4" />
-      </Button>
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={`h-8 px-2 ${
-          editor.isActive("bulletList") ? "bg-gray-200" : ""
-        }`}>
-        <List className="h-4 w-4" />
-      </Button>
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={() => editor.chain().focus().toggleOrderedList().run()}
-        className={`h-8 px-2 ${
-          editor.isActive("orderedList") ? "bg-gray-200" : ""
-        }`}>
-        <ListOrdered className="h-4 w-4" />
-      </Button>
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-        className={`h-8 px-2 ${
-          editor.isActive("codeBlock") ? "bg-gray-200" : ""
-        }`}>
-        <Code className="h-4 w-4" />
-      </Button>
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={() => editor.chain().focus().setTextAlign("left").run()}
-        className={`h-8 px-2 ${
-          editor.isActive({ textAlign: "left" }) ? "bg-gray-200" : ""
-        }`}>
-        <AlignLeft className="h-4 w-4" />
-      </Button>
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={() => editor.chain().focus().setTextAlign("center").run()}
-        className={`h-8 px-2 ${
-          editor.isActive({ textAlign: "center" }) ? "bg-gray-200" : ""
-        }`}>
-        <AlignCenter className="h-4 w-4" />
-      </Button>
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={() => editor.chain().focus().setTextAlign("right").run()}
-        className={`h-8 px-2 ${
-          editor.isActive({ textAlign: "right" }) ? "bg-gray-200" : ""
-        }`}>
-        <AlignRight className="h-4 w-4" />
-      </Button>
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={setLink}
-        className={`h-8 px-2 ${editor.isActive("link") ? "bg-gray-200" : ""}`}>
-        <LinkIcon className="h-4 w-4" />
-      </Button>
+    <div className="control-group" style={{ marginBottom: "10px" }}>
+      <div className="button-group">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => editor.chain().focus().toggleBold().run()}
+          className={`h-8 px-2 ${editor.isActive("bold") ? "is-active" : ""}`}>
+          <Bold className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => editor.chain().focus().toggleItalic().run()}
+          className={`h-8 px-2 ${
+            editor.isActive("italic") ? "is-active" : ""
+          }`}>
+          <Italic className="h-4 w-4" />
+        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="sm" className="h-8 px-2 text-base">
+              Heading <ChevronDown className="ml-1 h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {[1, 2, 3, 4, 5, 6].map((level) => (
+              <DropdownMenuItem
+                key={level}
+                onSelect={() =>
+                  editor
+                    .chain()
+                    .focus()
+                    .toggleHeading({ level: level as HeadingLevel })
+                    .run()
+                }
+                className={
+                  editor.isActive("heading", { level }) ? "is-active" : ""
+                }>
+                H{level}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => editor.chain().focus().toggleBulletList().run()}
+          className={`h-8 px-2 ${
+            editor.isActive("bulletList") ? "is-active" : ""
+          }`}>
+          <List className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => editor.chain().focus().toggleOrderedList().run()}
+          className={`h-8 px-2 ${
+            editor.isActive("orderedList") ? "is-active" : ""
+          }`}>
+          <ListOrdered className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+          className={`h-8 px-2 ${
+            editor.isActive("codeBlock") ? "is-active" : ""
+          }`}>
+          <Code className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => editor.chain().focus().setTextAlign("left").run()}
+          className={`h-8 px-2 ${
+            editor.isActive({ textAlign: "left" }) ? "is-active" : ""
+          }`}>
+          <AlignLeft className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => editor.chain().focus().setTextAlign("center").run()}
+          className={`h-8 px-2 ${
+            editor.isActive({ textAlign: "center" }) ? "is-active" : ""
+          }`}>
+          <AlignCenter className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => editor.chain().focus().setTextAlign("right").run()}
+          className={`h-8 px-2 ${
+            editor.isActive({ textAlign: "right" }) ? "is-active" : ""
+          }`}>
+          <AlignRight className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => editor.chain().focus().setTextAlign("justify").run()}
+          className={`h-8 px-2 ${
+            editor.isActive({ textAlign: "justify" }) ? "is-active" : ""
+          }`}>
+          <AlignJustify className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={setLink}
+          className={`h-8 px-2 ${editor.isActive("link") ? "is-active" : ""}`}>
+          <LinkIcon className="h-4 w-4" />
+        </Button>
+      </div>
     </div>
   );
 };
@@ -177,23 +191,29 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
-        heading: false,
-        bulletList: false,
-        orderedList: false,
-        listItem: false,
+        bulletList: {
+          keepMarks: true,
+          keepAttributes: false,
+        },
+        orderedList: {
+          keepMarks: true,
+          keepAttributes: false,
+        },
       }),
       Heading.configure({
-        levels: [1, 2, 3],
+        levels: [1, 2, 3, 4, 5, 6],
       }),
-      BulletList,
-      OrderedList,
-      ListItem,
       Link.configure({
         openOnClick: false,
       }),
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),
+      Color,
+      TextStyle,
+      BulletList,
+      OrderedList,
+      ListItem,
     ],
     content: internalContent,
     onUpdate: ({ editor }) => {
@@ -203,8 +223,14 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     },
     editorProps: {
       attributes: {
-        class: "prose max-w-none p-4 focus:outline-none",
-        style: "height: 400px; overflow-y: auto;",
+        class: "tiptap",
+        style: `
+            height: 400px;
+            overflow-y: auto;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 0.5rem;
+          `,
       },
     },
   });
@@ -222,22 +248,119 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   useEffect(() => {
     if (content !== internalContent) {
       if (Math.abs(content.length - internalContent.length) > 10) {
-        // If the change is significant, remount the editor
         setKey((prevKey) => prevKey + 1);
         setInternalContent(content);
       } else {
-        // For smaller changes, update the content directly
         updateContent(content);
       }
     }
   }, [content, internalContent, updateContent]);
 
   return (
-    <div
-      key={key}
-      className="border border-gray-300 rounded-lg overflow-hidden">
+    <div key={key}>
+      <style jsx global>{`
+        .tiptap {
+          > * + * {
+            margin-top: 0.75em;
+          }
+
+          ul,
+          ol {
+            padding: 0 1rem;
+            margin: 1rem 0;
+          }
+
+          ul {
+            list-style-type: disc;
+          }
+
+          ol {
+            list-style-type: decimal;
+          }
+
+          li {
+            margin-bottom: 0.5em;
+          }
+
+          li > p {
+            margin: 0;
+          }
+
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            line-height: 1.1;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+          }
+
+          h1 {
+            font-size: 2em;
+          }
+          h2 {
+            font-size: 1.5em;
+          }
+          h3 {
+            font-size: 1.17em;
+          }
+          h4 {
+            font-size: 1em;
+          }
+          h5 {
+            font-size: 0.83em;
+          }
+          h6 {
+            font-size: 0.67em;
+          }
+
+          code {
+            background-color: rgba(97, 97, 97, 0.1);
+            color: #616161;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-size: 0.85em;
+          }
+
+          pre {
+            background: #0d0d0d;
+            color: #fff;
+            font-family: "JetBrainsMono", monospace;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+
+            code {
+              color: inherit;
+              padding: 0;
+              background: none;
+              font-size: 0.8rem;
+            }
+          }
+
+          img {
+            max-width: 100%;
+            height: auto;
+          }
+
+          blockquote {
+            padding-left: 1rem;
+            border-left: 2px solid rgba(13, 13, 13, 0.1);
+            font-style: italic;
+            margin: 1rem 0;
+          }
+
+          hr {
+            border: none;
+            border-top: 2px solid rgba(13, 13, 13, 0.1);
+            margin: 2rem 0;
+          }
+        }
+      `}</style>
       <MenuBar editor={editor} />
-      <EditorContent editor={editor} className="prose max-w-none p-4" />
+      <EditorContent editor={editor} />
     </div>
   );
 };
