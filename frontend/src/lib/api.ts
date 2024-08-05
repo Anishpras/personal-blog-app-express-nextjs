@@ -34,7 +34,6 @@ export async function createPost(
   authorId: string,
   token: string
 ): Promise<Post> {
-  console.log("createPost", title, content, authorId, token);
   return fetchAPI("/posts", {
     method: "POST",
     headers: {

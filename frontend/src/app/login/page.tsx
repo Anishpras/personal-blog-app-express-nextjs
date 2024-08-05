@@ -11,7 +11,7 @@ export default function LoginPage() {
   const { data: session, status } = useSession();
   const [password, setPassword] = useState("");
   const router = useRouter();
-  console.log(session);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = await signIn("credentials", {

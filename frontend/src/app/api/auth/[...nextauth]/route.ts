@@ -22,14 +22,13 @@ export const authOptions: NextAuthOptions = {
               credentials.email,
               credentials.password
             );
-            console.log(signUpResponse, "Response from signup");
-            // After successful signup, proceed with login
+
             if (signUpResponse.message === "User created successfully") {
               const loggedInUser = await login(
                 credentials.email,
                 credentials.password
               );
-              console.log(loggedInUser, "User from login after signup");
+
               return {
                 id: loggedInUser.user.id,
                 email: loggedInUser.user.email,
@@ -42,7 +41,6 @@ export const authOptions: NextAuthOptions = {
               credentials.email,
               credentials.password
             );
-            console.log(loggedInUser, "User from login");
             return {
               id: loggedInUser.user.id,
               email: loggedInUser.user.email,
@@ -66,18 +64,6 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      console.log(token, "Token from session callback");
-      console.log(
-        {
-          ...session,
-          user: {
-            id: token.id as string,
-            email: token.email as string,
-            accessToken: token.accessToken as string,
-          },
-        },
-        "Session from session callback"
-      );
       return {
         ...session,
         user: {
