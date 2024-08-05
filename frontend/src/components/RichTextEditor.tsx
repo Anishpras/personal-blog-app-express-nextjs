@@ -164,13 +164,6 @@ const MenuBar: React.FC<MenuBarProps> = ({ editor }) => {
           }`}>
           <AlignJustify className="h-4 w-4" />
         </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={setLink}
-          className={`h-8 px-2 ${editor.isActive("link") ? "is-active" : ""}`}>
-          <LinkIcon className="h-4 w-4" />
-        </Button>
       </div>
     </div>
   );
