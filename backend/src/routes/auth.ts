@@ -35,7 +35,7 @@ router.post("/login", async (req, res) => {
       { userId: user.id },
       process.env.JWT_SECRET as string
     );
-    res.json({ token });
+    res.json({ token, user });
   } catch (error) {
     res.status(500).json({ error: "Error logging in" });
   }
