@@ -7,12 +7,14 @@ import {
   Select,
   SelectContent,
   SelectItem,
+  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { Author, Post as PostType } from "@/types";
 import { cn } from "@/lib/utils";
 import AnimatedGridPattern from "@/components/ui/animated-grid-pattern";
+import { Button } from "@/components/ui/button";
 
 export default function HomePage() {
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -68,6 +70,17 @@ export default function HomePage() {
                 {author.email}
               </SelectItem>
             ))}
+            <SelectSeparator />
+            <Button
+              className="w-full px-2"
+              variant="secondary"
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedAuthor("");
+              }}>
+              Clear
+            </Button>
           </SelectContent>
         </Select>
       </div>
