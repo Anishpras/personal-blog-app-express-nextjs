@@ -26,6 +26,8 @@ backend/
 │   │   ├── auth.ts
 │   │   ├── posts.ts
 │   │   └── authors.ts
+│   └── utils/
+│   │   ├── validateEnv.ts
 │   └── index.ts
 ├── .env
 ├── package.json
@@ -228,7 +230,6 @@ This frontend architecture provides a solid foundation for the personal blog pla
 
 ## Setup Instructions
 
-
 ### Cloning the Repository
 
 1. Open your terminal and run the following command to clone the repository:
@@ -242,7 +243,6 @@ This frontend architecture provides a solid foundation for the personal blog pla
    ```
    cd personal-blog-app-express-nextjs
    ```
-
 
 ### Backend Setup
 
