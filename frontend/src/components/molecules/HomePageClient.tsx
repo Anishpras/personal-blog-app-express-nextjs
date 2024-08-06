@@ -58,28 +58,31 @@ export default function HomePageClient({
         )}
       />
       <h1 className="text-3xl font-bold mb-4">Latest Blog Posts</h1>
-      <div className="mb-4">
-        <Select onValueChange={handleAuthorChange} value={selectedAuthor}>
-          <SelectTrigger className="w-[200px]">
-            <SelectValue placeholder="Filter by Author" />
-          </SelectTrigger>
-          <SelectContent>
-            {authors.map((author) => (
-              <SelectItem key={author.id} value={author.id}>
-                {author.email}
-              </SelectItem>
-            ))}
-            <SelectSeparator />
-            <Button
-              className="w-full px-2"
-              variant="secondary"
-              size="sm"
-              onClick={handleClear}>
-              Clear
-            </Button>
-          </SelectContent>
-        </Select>
-      </div>
+      {authors.length > 0 && (
+        <div className="mb-4">
+          <Select onValueChange={handleAuthorChange} value={selectedAuthor}>
+            <SelectTrigger className="w-[200px]">
+              <SelectValue placeholder="Filter by Author" />
+            </SelectTrigger>
+            <SelectContent>
+              {authors.map((author) => (
+                <SelectItem key={author.id} value={author.id}>
+                  {author.email}
+                </SelectItem>
+              ))}
+              <SelectSeparator />
+              <Button
+                className="w-full px-2"
+                variant="secondary"
+                size="sm"
+                onClick={handleClear}>
+                Clear
+              </Button>
+            </SelectContent>
+          </Select>
+        </div>
+      )}
+
       {posts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {posts?.map((post, index) => (
