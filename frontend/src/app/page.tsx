@@ -11,6 +11,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Author, Post as PostType } from "@/types";
+import { cn } from "@/lib/utils";
+import AnimatedGridPattern from "@/components/ui/animated-grid-pattern";
 
 export default function HomePage() {
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -44,6 +46,16 @@ export default function HomePage() {
 
   return (
     <div className="container mx-auto mt-8">
+      <AnimatedGridPattern
+        numSquares={200}
+        maxOpacity={0.1}
+        duration={3}
+        repeatDelay={1}
+        className={cn(
+          "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
+          "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12"
+        )}
+      />
       <h1 className="text-3xl font-bold mb-4">Latest Blog Posts</h1>
       <div className="mb-4">
         <Select onValueChange={handleAuthorChange} value={selectedAuthor}>

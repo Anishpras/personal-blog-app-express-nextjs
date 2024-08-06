@@ -19,6 +19,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { BorderBeam } from "./ui/border-beam";
 
 interface PostProps {
   id: string;
@@ -85,6 +86,7 @@ export function Post({
 
   return (
     <div className="transform transition duration-300 hover:scale-105">
+      <BorderBeam />
       <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
         <CardContent className="p-6">
           <div className="flex items-center mb-4">

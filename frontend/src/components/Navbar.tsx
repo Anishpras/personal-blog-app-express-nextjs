@@ -3,13 +3,15 @@
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import ShinyButton from "./ui/shiny-button";
+import ShimmerButton from "./ui/shimmer-button";
 
 export function Navbar() {
   const { data: session } = useSession();
@@ -50,12 +52,13 @@ export function Navbar() {
               </>
             ) : (
               <>
-                <Button variant="ghost" asChild>
-                  <Link href="/login">Log in</Link>
-                </Button>
-                <Button asChild>
+                <Link href="/login">
+                  <ShinyButton text="Log in" />
+                </Link>
+
+                <ShimmerButton className="shadow-2xl py-2">
                   <Link href="/signup">Sign Up</Link>
-                </Button>
+                </ShimmerButton>
               </>
             )}
           </div>
