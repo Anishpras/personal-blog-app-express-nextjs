@@ -26,10 +26,8 @@ export function Navbar() {
           <div className="flex items-center space-x-4">
             {session ? (
               <>
-                <Link
-                  href="/dashboard"
-                  className="text-gray-700 hover:text-gray-900">
-                  Dashboard
+                <Link href="/dashboard">
+                  <ShinyButton text="Dashboard" />
                 </Link>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
