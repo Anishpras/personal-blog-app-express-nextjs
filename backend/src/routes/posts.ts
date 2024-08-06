@@ -91,6 +91,14 @@ router.put("/:id", auth, async (req: any, res) => {
     const updatedPost = await prisma.post.update({
       where: { id: id },
       data: { title, content },
+      include: {
+        author: {
+          select: {
+            email: true,
+            id: true,
+          },
+        },
+      },
     });
 
     res.json(updatedPost);
