@@ -26,8 +26,16 @@ const RichTextEditor = ({
       Superscript,
       SubScript,
       Highlight,
-      BulletList,
-      OrderedList,
+      BulletList.configure({
+        HTMLAttributes: {
+          class: "list-disc list-outside ml-5",
+        },
+      }),
+      OrderedList.configure({
+        HTMLAttributes: {
+          class: "list-decimal list-outside ml-5",
+        },
+      }),
       ListItem,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
@@ -37,54 +45,66 @@ const RichTextEditor = ({
     },
   });
   return (
-    <MantineRichTextEditor editor={editor}>
-      <MantineRichTextEditor.Toolbar sticky stickyOffset={60}>
-        <MantineRichTextEditor.ControlsGroup>
-          <MantineRichTextEditor.Bold />
-          <MantineRichTextEditor.Italic />
-          <MantineRichTextEditor.Underline />
-          <MantineRichTextEditor.Strikethrough />
-          <MantineRichTextEditor.ClearFormatting />
-          <MantineRichTextEditor.Highlight />
-          <MantineRichTextEditor.Code />
-        </MantineRichTextEditor.ControlsGroup>
+    <div className="rich-text-editor">
+      <MantineRichTextEditor editor={editor}>
+        <MantineRichTextEditor.Toolbar sticky stickyOffset={60}>
+          <MantineRichTextEditor.ControlsGroup>
+            <MantineRichTextEditor.Bold />
+            <MantineRichTextEditor.Italic />
+            <MantineRichTextEditor.Underline />
+            <MantineRichTextEditor.Strikethrough />
+            <MantineRichTextEditor.ClearFormatting />
+            <MantineRichTextEditor.Highlight />
+            <MantineRichTextEditor.Code />
+          </MantineRichTextEditor.ControlsGroup>
 
-        <MantineRichTextEditor.ControlsGroup>
-          <MantineRichTextEditor.H1 />
-          <MantineRichTextEditor.H2 />
-          <MantineRichTextEditor.H3 />
-          <MantineRichTextEditor.H4 />
-        </MantineRichTextEditor.ControlsGroup>
+          <MantineRichTextEditor.ControlsGroup>
+            <MantineRichTextEditor.H1 />
+            <MantineRichTextEditor.H2 />
+            <MantineRichTextEditor.H3 />
+            <MantineRichTextEditor.H4 />
+          </MantineRichTextEditor.ControlsGroup>
 
-        <MantineRichTextEditor.ControlsGroup>
-          <MantineRichTextEditor.Blockquote />
-          <MantineRichTextEditor.Hr />
-          <MantineRichTextEditor.BulletList />
-          <MantineRichTextEditor.OrderedList />
-          <MantineRichTextEditor.Subscript />
-          <MantineRichTextEditor.Superscript />
-        </MantineRichTextEditor.ControlsGroup>
+          <MantineRichTextEditor.ControlsGroup>
+            <MantineRichTextEditor.Blockquote />
+            <MantineRichTextEditor.Hr />
+            <MantineRichTextEditor.BulletList />
+            <MantineRichTextEditor.OrderedList />
+            <MantineRichTextEditor.Subscript />
+            <MantineRichTextEditor.Superscript />
+          </MantineRichTextEditor.ControlsGroup>
 
-        <MantineRichTextEditor.ControlsGroup>
-          <MantineRichTextEditor.Link />
-          <MantineRichTextEditor.Unlink />
-        </MantineRichTextEditor.ControlsGroup>
+          <MantineRichTextEditor.ControlsGroup>
+            <MantineRichTextEditor.Link />
+            <MantineRichTextEditor.Unlink />
+          </MantineRichTextEditor.ControlsGroup>
 
-        <MantineRichTextEditor.ControlsGroup>
-          <MantineRichTextEditor.AlignLeft />
-          <MantineRichTextEditor.AlignCenter />
-          <MantineRichTextEditor.AlignJustify />
-          <MantineRichTextEditor.AlignRight />
-        </MantineRichTextEditor.ControlsGroup>
+          <MantineRichTextEditor.ControlsGroup>
+            <MantineRichTextEditor.AlignLeft />
+            <MantineRichTextEditor.AlignCenter />
+            <MantineRichTextEditor.AlignJustify />
+            <MantineRichTextEditor.AlignRight />
+          </MantineRichTextEditor.ControlsGroup>
 
-        <MantineRichTextEditor.ControlsGroup>
-          <MantineRichTextEditor.Undo />
-          <MantineRichTextEditor.Redo />
-        </MantineRichTextEditor.ControlsGroup>
-      </MantineRichTextEditor.Toolbar>
+          <MantineRichTextEditor.ControlsGroup>
+            <MantineRichTextEditor.Undo />
+            <MantineRichTextEditor.Redo />
+          </MantineRichTextEditor.ControlsGroup>
+        </MantineRichTextEditor.Toolbar>
 
-      <MantineRichTextEditor.Content />
-    </MantineRichTextEditor>
+        <MantineRichTextEditor.Content />
+      </MantineRichTextEditor>
+      <style jsx global>{`
+        .rich-text-editor .ProseMirror ul {
+          list-style-type: disc;
+          padding-left: 1.5em;
+        }
+        .rich-text-editor .ProseMirror ol {
+          list-style-type: decimal;
+          padding-left: 1.5em;
+        }
+      `}</style>
+    </div>
   );
 };
 
