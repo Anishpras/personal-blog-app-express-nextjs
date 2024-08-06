@@ -97,6 +97,7 @@ export default function Dashboard() {
                 <Post
                   key={post.id}
                   {...post}
+                  optionsPanel
                   onUpdate={() => fetchUserPosts()}
                 />
               ))}

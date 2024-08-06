@@ -37,6 +37,10 @@ export default function PostPage({ params }: { params: { id: string } }) {
         setPost(fetchedPost);
         setEditedTitle(fetchedPost.title);
         setEditedContent(fetchedPost.content);
+
+        if (session?.user?.email === fetchedPost.author?.email) {
+          setIsAuthor(true);
+        }
       } catch (error) {
         console.error("Failed to fetch post:", error);
         notFound();
@@ -44,7 +48,7 @@ export default function PostPage({ params }: { params: { id: string } }) {
     };
 
     fetchPost();
-  }, [params.id]);
+  }, [params.id, session]);
 
   const handleEdit = async () => {
     if (isEditing) {

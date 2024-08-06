@@ -45,7 +45,11 @@ export default function HomePage() {
       fetchPosts();
     }
   };
-
+  const handleClear = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    setSelectedAuthor("");
+    fetchPosts();
+  };
   return (
     <div className="container mx-auto mt-8">
       <AnimatedGridPattern
@@ -75,10 +79,7 @@ export default function HomePage() {
               className="w-full px-2"
               variant="secondary"
               size="sm"
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedAuthor("");
-              }}>
+              onClick={handleClear}>
               Clear
             </Button>
           </SelectContent>

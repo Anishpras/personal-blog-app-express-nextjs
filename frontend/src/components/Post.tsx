@@ -31,6 +31,7 @@ interface PostProps {
   };
   createdAt: string;
   onUpdate?: () => void;
+  optionsPanel?: boolean;
 }
 
 export function Post({
@@ -40,6 +41,7 @@ export function Post({
   author,
   createdAt,
   onUpdate,
+  optionsPanel,
 }: PostProps) {
   const { data: session } = useSession();
   const [isEditing, setIsEditing] = useState(false);
@@ -130,7 +132,7 @@ export function Post({
         </CardContent>
         <CardFooter className="bg-gray-50 p-4">
           <div className="flex justify-between items-center w-full">
-            {session?.user?.id === author.id && (
+            {optionsPanel && session?.user?.id === author.id && (
               <>
                 <Button variant="ghost" onClick={handleEdit}>
                   {isEditing ? "Save" : <Edit />}
