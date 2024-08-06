@@ -9,6 +9,160 @@ The project is divided into two main directories:
 - `backend/`: Contains the Express.js API
 - `frontend/`: Contains the Next.js 14 application
 
+## Prerequisites
+
+- Node.js (v18 or later)
+- pnpm, npm or yarn
+- PostgreSQL database
+- Git
+
+## Setup Instructions
+
+### Cloning the Repository
+
+1. Open your terminal and run the following command to clone the repository:
+
+   ```
+   git clone https://github.com/Anishpras/personal-blog-app-express-nextjs.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```
+   cd personal-blog-app-express-nextjs
+   ```
+
+### Backend Setup
+
+1. Navigate to the backend directory:
+
+   ```
+   cd backend
+   ```
+
+2. Install dependencies:
+
+   ```
+   pnpm i
+   ```
+
+3. Create a `.env` file in the `backend/` directory with the following content:
+
+   ```
+   DATABASE_URL=postgresql://[username]:[password]@localhost:5432/[database_name]
+   JWT_SECRET="your-secret-key"
+   PORT=3001
+   ```
+
+   Replace the `DATABASE_URL` with your actual PostgreSQL connection string if different.
+
+4. Set up the database:
+
+   ```
+   npx prisma migrate dev
+   ```
+
+5. Build the project:
+   ```
+   pnpm build
+   ```
+
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+
+   ```
+   cd frontend
+   ```
+
+2. Install dependencies:
+
+   ```
+   pnpm i
+   ```
+
+3. Create a `.env` file in the `frontend/` directory with the following content:
+   ```
+   NEXT_PUBLIC_API_URL=http://localhost:3001/api
+   NEXTAUTH_SECRET=your_secure_random_string_here
+   NEXTAUTH_URL=http://localhost:3000
+   ```
+
+## Running the Application
+
+### Running the Backend
+
+1. In the `backend/` directory, start the server:
+   ```
+   pnpm dev
+   ```
+   The API will be available at `http://localhost:3001/api`.
+
+### Running the Frontend
+
+1. In the `frontend/` directory, start the Next.js development server:
+   ```
+   pnpm dev
+   ```
+   The application will be available at `http://localhost:3000`.
+
+## Building the Backend
+
+In the `backend/` directory, build the server then start it.
+
+```
+pnpm build
+```
+
+then run:
+
+```
+pnpm start
+```
+
+## Building the frontend
+
+In the `frontend/` directory, build the NextJs App using this command:
+
+```
+pnpm build
+```
+
+then:
+
+```
+pnpm start
+```
+
+## Technology Stack
+
+- Backend: Node.js, Express.js, Prisma ORM
+- Frontend: Next.js 14, TypeScript
+- Authentication: JWT
+- Database: PostgreSQL
+
+## Extra Note
+
+- As few pages need to be static generated if the backend server is not running then the NextJs app will show TypeError something like this while building the app -
+
+```
+
+TypeError: fetch failed
+    at node:internal/deps/undici/undici:12344:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {
+  cause: AggregateError
+      at internalConnectMultiple (node:net:1114:18)
+      at afterConnectMultiple (node:net:1667:5)
+      at TCPConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+
+```
+
+Just run the backend server then build the frontend and it will work fine.
+
 # Backend Structure and Development Choices
 
 ## Project Structure
@@ -225,159 +379,3 @@ Custom `ErrorMessage` and `Loading` components are used throughout the applicati
 - Add more interactive elements and animations for a richer user experience
 
 This frontend architecture provides a solid foundation for the personal blog platform, with a focus on performance, user experience, and maintainability.
-
-## Prerequisites
-
-- Node.js (v18 or later)
-- pnpm, npm or yarn
-- PostgreSQL database
-- Git
-
-## Setup Instructions
-
-### Cloning the Repository
-
-1. Open your terminal and run the following command to clone the repository:
-
-   ```
-   git clone https://github.com/Anishpras/personal-blog-app-express-nextjs.git
-   ```
-
-2. Navigate to the project directory:
-
-   ```
-   cd personal-blog-app-express-nextjs
-   ```
-
-### Backend Setup
-
-1. Navigate to the backend directory:
-
-   ```
-   cd backend
-   ```
-
-2. Install dependencies:
-
-   ```
-   pnpm i
-   ```
-
-3. Create a `.env` file in the `backend/` directory with the following content:
-
-   ```
-   DATABASE_URL=postgresql://[username]:[password]@localhost:5432/[database_name]
-   JWT_SECRET="your-secret-key"
-   PORT=3001
-   ```
-
-   Replace the `DATABASE_URL` with your actual PostgreSQL connection string if different.
-
-4. Set up the database:
-
-   ```
-   npx prisma migrate dev
-   ```
-
-5. Build the project:
-   ```
-   pnpm build
-   ```
-
-### Frontend Setup
-
-1. Navigate to the frontend directory:
-
-   ```
-   cd frontend
-   ```
-
-2. Install dependencies:
-
-   ```
-   pnpm i
-   ```
-
-3. Create a `.env` file in the `frontend/` directory with the following content:
-   ```
-   NEXT_PUBLIC_API_URL=http://localhost:3001/api
-   NEXTAUTH_SECRET=your_secure_random_string_here
-   NEXTAUTH_URL=http://localhost:3000
-   ```
-
-## Running the Application
-
-### Running the Backend
-
-1. In the `backend/` directory, start the server:
-   ```
-   pnpm dev
-   ```
-   The API will be available at `http://localhost:3001/api`.
-
-### Running the Frontend
-
-1. In the `frontend/` directory, start the Next.js development server:
-   ```
-   pnpm dev
-   ```
-   The application will be available at `http://localhost:3000`.
-
-## Building the Backend
-
-In the `backend/` directory, build the server then start it.
-
-```
-pnpm build
-```
-
-then run:
-
-```
-pnpm start
-```
-
-## Building the frontend
-
-In the `frontend/` directory, build the NextJs App using this command:
-
-```
-pnpm build
-```
-
-then:
-
-```
-pnpm start
-```
-
-## Technology Stack
-
-- Backend: Node.js, Express.js, Prisma ORM
-- Frontend: Next.js 14, TypeScript
-- Authentication: JWT
-- Database: PostgreSQL
-
-## Extra Note
-
-- As few pages need to be static generated if the backend server is not running then the NextJs app will show TypeError something like this while building the app -
-
-```
-
-TypeError: fetch failed
-    at node:internal/deps/undici/undici:12344:11
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {
-  cause: AggregateError
-      at internalConnectMultiple (node:net:1114:18)
-      at afterConnectMultiple (node:net:1667:5)
-      at TCPConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
-
-```
-
-Just run the backend server then build the frontend and it will work fine.
-
-
