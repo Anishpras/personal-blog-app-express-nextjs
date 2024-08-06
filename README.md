@@ -13,7 +13,7 @@ The project is divided into two main directories:
 
 ## Project Structure
 
-The backend of our personal blog platform is built using Node.js with Express.js and Prisma ORM. Here's an overview of the project structure and the choices made during development:
+The backend of my personal blog platform is built using Node.js with Express.js and Prisma ORM. Here's an overview of the project structure and the choices I made during development:
 
 ```
 backend/
@@ -36,7 +36,7 @@ backend/
 
 ### 1. Database Schema (Prisma)
 
-I used Prisma as our ORM and database toolkit. The `schema.prisma` file defines our data models:
+I used Prisma as my ORM and database toolkit. The `schema.prisma` file defines my data models:
 
 - **User**: Represents blog users with fields for id, email, and password.
 - **Post**: Represents blog posts with fields for id, title, content, authorId, createdAt, and updatedAt.
@@ -45,7 +45,7 @@ Prisma provides type-safe database access and simplifies database operations.
 
 ### 2. API Routes
 
-We've organized our API routes into separate files for better modularity:
+I've organized my API routes into separate files for better modularity:
 
 - **auth.ts**: Handles user authentication (signup and login).
 - **posts.ts**: Manages CRUD operations for blog posts.
@@ -53,7 +53,7 @@ We've organized our API routes into separate files for better modularity:
 
 ### 3. Authentication
 
-We implement JWT (JSON Web Token) based authentication:
+I implement JWT (JSON Web Token) based authentication:
 
 - Passwords are hashed using bcrypt before storage.
 - JWTs are issued upon successful login and used to authenticate subsequent requests.
@@ -65,17 +65,17 @@ The main application file sets up the Express server, applies middleware (CORS, 
 
 ## Development Choices
 
-1. **TypeScript**: We chose TypeScript for improved developer experience, static typing, and better tooling support.
+1. **TypeScript**: I chose TypeScript for improved developer experience, static typing, and better tooling support.
 
-2. **Prisma ORM**: Prisma was selected for its type-safe database access, ease of use, and powerful migration capabilities.
+2. **Prisma ORM**: I selected Prisma for its type-safe database access, ease of use, and powerful migration capabilities.
 
-3. **RESTful API Design**: We implemented a RESTful API structure for intuitive and standardized endpoints.
+3. **RESTful API Design**: I implemented a RESTful API structure for intuitive and standardized endpoints.
 
 4. **JWT Authentication**: JWT provides a stateless authentication mechanism, suitable for scalable applications.
 
 5. **Environment Variables**: Sensitive information (database URL, JWT secret) is stored in environment variables for security.
 
-6. **Error Handling**: We've implemented basic error handling throughout the application, with specific error messages for different scenarios.
+6. **Error Handling**: I've implemented basic error handling throughout the application, with specific error messages for different scenarios.
 
 7. **CORS**: Cross-Origin Resource Sharing is enabled to allow requests from the frontend application.
 
@@ -95,7 +95,7 @@ This backend structure provides a solid foundation for the personal blog platfor
 
 ## Project Structure
 
-The frontend of our personal blog platform is built using Next.js 14 with TypeScript. Here's an overview of the project structure and the choices made during development:
+The frontend of my personal blog platform is built using Next.js 14 with TypeScript. Here's an overview of the project structure and the choices I made during development:
 
 ```
 frontend/
@@ -157,7 +157,7 @@ frontend/
 
 ### 1. Next.js 14 with App Router
 
-We've adopted Next.js 14 with its App Router for improved performance and easier server-side rendering. This allows for better SEO and initial load times.
+I've adopted Next.js 14 with its App Router for improved performance and easier server-side rendering. This allows for better SEO and initial load times.
 
 ### 2. TypeScript
 
@@ -165,7 +165,7 @@ TypeScript is used throughout the project for type safety and improved developer
 
 ### 3. Authentication (NextAuth.js)
 
-We use NextAuth.js for authentication, providing a secure and flexible authentication system. The `AuthProvider` component wraps the application to provide session information globally.
+I use NextAuth.js for authentication, providing a secure and flexible authentication system. The `AuthProvider` component wraps the application to provide session information globally.
 
 ### 4. API Integration
 
@@ -173,7 +173,7 @@ The `api.ts` file in the `lib` folder centralizes all API calls, making it easie
 
 ### 5. Rich Text Editor
 
-We've implemented a custom `RichTextEditor` component using `@mantine/tiptap` for creating and editing blog posts with advanced formatting options.
+I've implemented a custom `RichTextEditor` component using `@mantine/tiptap` for creating and editing blog posts with advanced formatting options.
 
 ### 6. Responsive Design
 
@@ -181,11 +181,11 @@ The application is designed to be fully responsive, using Tailwind CSS for styli
 
 ### 7. Custom UI Components
 
-We've  several  UI components (e.g., `ShinyButton`, `ShimmerButton`) to enhance the user interface and provide a unique user experience from Shadcn UI and some from Magic UI
+I've created several UI components (e.g., `ShinyButton`, `ShimmerButton`) to enhance the user interface and provide a unique user experience from Shadcn UI and some from Magic UI.
 
 ### 8. Client-Side and Server-Side Rendering
 
-We utilize both client-side and server-side rendering strategies to optimize performance and SEO. For example, the homepage uses server-side rendering for initial load and client-side rendering for dynamic updates.
+I utilize both client-side and server-side rendering strategies to optimize performance and SEO. For example, the homepage uses server-side rendering for initial load and client-side rendering for dynamic updates.
 
 ### 9. Error Handling and Loading States
 
@@ -222,7 +222,7 @@ This frontend architecture provides a solid foundation for the personal blog pla
 ## Prerequisites
 
 - Node.js (v18 or later)
-- pnpm , npm or yarn
+- pnpm, npm or yarn
 - PostgreSQL database
 
 ## Setup Instructions
