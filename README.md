@@ -106,6 +106,8 @@ The project is divided into two main directories:
    ```
    The application will be available at `http://localhost:3000`.
 
+2. When you will sign up and create your first post it will not appear on first load as it will re-validate after sometime, so just hit refresh and it will appear.   
+
 ## Building the Backend
 
 In the `backend/` directory, build the server then start it.
