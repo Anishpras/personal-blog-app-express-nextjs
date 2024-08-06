@@ -323,6 +323,34 @@ This frontend architecture provides a solid foundation for the personal blog pla
    ```
    The application will be available at `http://localhost:3000`.
 
+## Building the Backend
+
+In the `backend/` directory, build the server then start it.
+
+```
+pnpm build
+```
+
+then run:
+
+```
+pnpm start
+```
+
+## Building the frontend
+
+In the `frontend/` directory, build the NextJs App using this command:
+
+```
+pnpm build
+```
+
+then:
+
+```
+pnpm start
+```
+
 ## Technology Stack
 
 - Backend: Node.js, Express.js, Prisma ORM
@@ -332,7 +360,7 @@ This frontend architecture provides a solid foundation for the personal blog pla
 
 ## Extra Note
 
-- As few pages need to be static generated if the backend server is not running then the NextJs app will show TypeError something like this -
+- As few pages need to be static generated if the backend server is not running then the NextJs app will show TypeError something like this while building the app -
 
 ```
 
