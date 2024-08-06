@@ -1,7 +1,6 @@
 import { Author, Post, UserWithToken } from "@/types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
-console.log(API_URL);
 
 async function fetchAPI(endpoint: string, options: RequestInit = {}) {
   const url = `${API_URL}${endpoint}`;
@@ -10,6 +9,9 @@ async function fetchAPI(endpoint: string, options: RequestInit = {}) {
     headers: {
       "Content-Type": "application/json",
       ...options.headers,
+    },
+    next: {
+      revalidate: 10,
     },
   });
 
