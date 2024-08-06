@@ -297,6 +297,7 @@ This frontend architecture provides a solid foundation for the personal blog pla
    ```
    NEXT_PUBLIC_API_URL=http://localhost:3001/api
    NEXTAUTH_SECRET=your_secure_random_string_here
+   NEXTAUTH_URL=http://localhost:3000
    ```
 
 ## Running the Application
