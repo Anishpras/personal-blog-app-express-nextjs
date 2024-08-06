@@ -1,12 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signUp } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ErrorMessage } from "@/components/ErrorMessage";
 import Link from "next/link";
+import ClientErrorBoundary from "@/components/ClientErrorBoundary";
+import ErrorFallback from "@/components/ErrorFallback";
+import { Loading } from "@/components/Loading";
+import { toast } from "sonner";
 
 export default function SignUpPage() {
   const [email, setEmail] = useState("");
@@ -30,9 +34,11 @@ export default function SignUpPage() {
 
     try {
       await signUp(email, password);
+      toast("Account created successfully. Please log in.");
       router.push("/login?signupSuccess=true");
     } catch (err) {
       setError("Failed to sign up. Please try again.");
+      toast("Failed to sign up. Please try again.");
     }
     setIsLoading(false);
   };
@@ -41,52 +47,56 @@ export default function SignUpPage() {
     setSignupSuccess(urlParams.get("signupSuccess") === "true");
   }, []);
   return (
-    <div className="container mx-auto mt-8 max-w-md">
-      <h1 className="text-3xl font-bold mb-4">Sign Up</h1>
-      {error && <ErrorMessage message={error} />}
-      {signupSuccess && (
-        <div
-          className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
-          role="alert">
-          <strong className="font-bold">Success!</strong>
-          <span className="block sm:inline">
-            {" "}
-            Your account has been created. Please log in.
-          </span>
+    <ClientErrorBoundary fallback={<ErrorFallback />}>
+      <Suspense fallback={<Loading />}>
+        <div className="container mx-auto mt-8 max-w-md">
+          <h1 className="text-3xl font-bold mb-4">Sign Up</h1>
+          {error && <ErrorMessage message={error} />}
+          {signupSuccess && (
+            <div
+              className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
+              role="alert">
+              <strong className="font-bold">Success!</strong>
+              <span className="block sm:inline">
+                {" "}
+                Your account has been created. Please log in.
+              </span>
+            </div>
+          )}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <Input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <Input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <Input
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? "Signing Up..." : "Sign Up"}
+            </Button>
+          </form>
+          <p className="mt-4 text-center">
+            Already have an account?{" "}
+            <Link href="/login" className="text-blue-500 hover:underline">
+              Log In
+            </Link>
+          </p>
         </div>
-      )}
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <Input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <Input
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-        <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Signing Up..." : "Sign Up"}
-        </Button>
-      </form>
-      <p className="mt-4 text-center">
-        Already have an account?{" "}
-        <Link href="/login" className="text-blue-500 hover:underline">
-          Log In
-        </Link>
-      </p>
-    </div>
+      </Suspense>
+    </ClientErrorBoundary>
   );
 }

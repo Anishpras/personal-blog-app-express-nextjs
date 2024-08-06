@@ -1,10 +1,14 @@
+import { Suspense } from "react";
+import ClientErrorBoundary from "@/components/ClientErrorBoundary";
 import { AuthProvider } from "@/components/AuthProvider";
 import { Navbar } from "@/components/Navbar";
 import "./globals.css";
 import "@mantine/core/styles.css";
 import "@mantine/tiptap/styles.css";
-
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import ErrorFallback from "@/components/ErrorFallback";
+import { Loading } from "@/components/Loading";
+import { Toaster } from "sonner";
 export default function RootLayout({
   children,
 }: {
@@ -16,12 +20,19 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body>
-        <AuthProvider>
-          <Navbar />
-          <MantineProvider>
-            <main>{children}</main>
-          </MantineProvider>
-        </AuthProvider>
+        <ClientErrorBoundary fallback={<ErrorFallback />}>
+          <Suspense fallback={<Loading />}>
+            <AuthProvider>
+              <Navbar />
+              <MantineProvider>
+                <main>
+                  {children}
+                  <Toaster />
+                </main>
+              </MantineProvider>
+            </AuthProvider>
+          </Suspense>
+        </ClientErrorBoundary>
       </body>
     </html>
   );
