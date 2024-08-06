@@ -117,6 +117,7 @@ frontend/
 │   │   └── page.tsx
 │   ├── globals.css
 │   ├── layout.tsx
+│   ├── error.tsx
 │   └── page.tsx
 ├── components/
 │   ├── molecules/
@@ -137,6 +138,8 @@ frontend/
 │   │   ├── textarea.tsx
 │   │   └── typing-animation.tsx
 │   ├── AuthProvider.tsx
+│   ├── ClientErrorBoundary.tsx
+│   ├── ErrorFallback.tsx
 │   ├── ErrorMessage.tsx
 │   ├── Loading.tsx
 │   ├── Navbar.tsx
@@ -187,7 +190,7 @@ I've created several UI components (e.g., `ShinyButton`, `ShimmerButton`) to enh
 
 ### 8. Client-Side and Server-Side Rendering
 
-I utilize both client-side and server-side rendering strategies to optimize performance and SEO. For example, the homepage uses server-side rendering for initial load and client-side rendering for dynamic updates.
+I utilize both client-side and server-side rendering strategies to optimize performance and SEO.
 
 ### 9. Error Handling and Loading States
 
@@ -195,7 +198,7 @@ Custom `ErrorMessage` and `Loading` components are used throughout the applicati
 
 ## Development Choices
 
-1. **Next.js 14**: Chosen for its powerful features, including server-side rendering, static site generation, and the new App Router.
+1. **Next.js 14**: Chosen for its powerful features, and the project requirement, including server-side rendering, static site generation, and the new App Router.
 
 2. **TypeScript**: Improves code quality and developer productivity through static typing.
 
@@ -210,6 +213,8 @@ Custom `ErrorMessage` and `Loading` components are used throughout the applicati
 7. **Modular Component Structure**: Components are organized into logical folders (e.g., `molecules`, `ui`) for better maintainability.
 
 8. **Environment Variables**: Sensitive information and configuration settings are stored in environment variables for security and flexibility across different environments.
+
+9. **Other helper packages**: Used Shadcn UI, Magic UI components, sonner, etc for quick development.
 
 ## Future Improvements
 
