@@ -329,3 +329,27 @@ This frontend architecture provides a solid foundation for the personal blog pla
 - Frontend: Next.js 14, TypeScript
 - Authentication: JWT
 - Database: PostgreSQL
+
+## Extra Note
+
+- As few pages need to be static generated if the backend server is not running then the NextJs app will show TypeError something like this -
+
+```
+
+TypeError: fetch failed
+    at node:internal/deps/undici/undici:12344:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {
+  cause: AggregateError
+      at internalConnectMultiple (node:net:1114:18)
+      at afterConnectMultiple (node:net:1667:5)
+      at TCPConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+
+```
+
+Just run the backend server then build the frontend and it will work fine.
+
+
