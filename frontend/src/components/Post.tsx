@@ -47,8 +47,6 @@ export function Post({
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
   const [editedContent, setEditedContent] = useState(content);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-
   const stripHtmlAndTruncate = (html: string, maxLength: number) => {
     const stripped = html.replace(/<[^>]+>/g, "");
     return stripped.length > maxLength
@@ -98,7 +96,7 @@ export function Post({
             <div>
               <p className="font-semibold text-sm">{author.email}</p>
               <p className="text-xs text-gray-500">
-                {new Date(createdAt).toLocaleDateString()}
+                {new Date(createdAt).toDateString()}
               </p>
             </div>
           </div>

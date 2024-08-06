@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import ShinyButton from "./ui/shiny-button";
 import ShimmerButton from "./ui/shimmer-button";
+import TypingAnimation from "./ui/typing-animation";
 
 export function Navbar() {
   const { data: session } = useSession();
@@ -21,7 +22,10 @@ export function Navbar() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="text-2xl font-bold text-gray-900">
-            Blog Platform
+            <TypingAnimation
+              className="text-4xl font-bold text-black dark:text-white"
+              text="Blog Platform"
+            />
           </Link>
           <div className="flex items-center space-x-4">
             {session ? (
