@@ -20,6 +20,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { toast } from "sonner";
 
 export default function PostPageClient({ initialPost }: { initialPost: Post }) {
   const [post, setPost] = useState(initialPost);
@@ -53,7 +54,7 @@ export default function PostPageClient({ initialPost }: { initialPost: Post }) {
         setEditedTitle(updatedPost.title);
         setEditedContent(updatedPost.content);
         setIsEditing(false);
-        setIsAuthor(checkIsAuthor()); // Recheck author status after update
+        setIsAuthor(checkIsAuthor());
       } catch (error) {
         console.error("Failed to update post:", error);
       }
@@ -69,8 +70,10 @@ export default function PostPageClient({ initialPost }: { initialPost: Post }) {
         //@ts-expect-error - accessToken is defined in the session object
         session?.user?.accessToken!
       );
-      router.push("/dashboard"); // Redirect to home page after deletion
+      toast("Post deleted successfully");
+      router.push("/dashboard");
     } catch (error) {
+      toast("Failed to delete post");
       console.error("Failed to delete post:", error);
     }
   };
