@@ -37,7 +37,7 @@ router.get("/", async (req, res) => {
     const posts = await prisma.post.findMany({
       where: author ? { authorId: author.toString() } : {},
       include: { author: { select: { email: true, id: true } } },
-      orderBy: { createdAt: "desc" },
+      orderBy: { updatedAt: "desc" },
     });
 
     res.json(posts);
