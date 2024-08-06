@@ -7,6 +7,9 @@ import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
 import Superscript from "@tiptap/extension-superscript";
 import SubScript from "@tiptap/extension-subscript";
+import ListItem from "@tiptap/extension-list-item";
+import BulletList from "@tiptap/extension-bullet-list";
+import OrderedList from "@tiptap/extension-ordered-list";
 
 const RichTextEditor = ({
   content,
@@ -23,6 +26,9 @@ const RichTextEditor = ({
       Superscript,
       SubScript,
       Highlight,
+      BulletList,
+      OrderedList,
+      ListItem,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
     content,
