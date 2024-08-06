@@ -224,8 +224,25 @@ This frontend architecture provides a solid foundation for the personal blog pla
 - Node.js (v18 or later)
 - pnpm, npm or yarn
 - PostgreSQL database
+- Git
 
 ## Setup Instructions
+
+
+### Cloning the Repository
+
+1. Open your terminal and run the following command to clone the repository:
+
+   ```
+   git clone https://github.com/Anishpras/personal-blog-app-express-nextjs.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```
+   cd personal-blog-app-express-nextjs
+   ```
+
 
 ### Backend Setup
 
@@ -244,7 +261,7 @@ This frontend architecture provides a solid foundation for the personal blog pla
 3. Create a `.env` file in the `backend/` directory with the following content:
 
    ```
-   DATABASE_URL=postgresql://anishpras:anish@localhost:5432/shodh-ai-assignment
+   DATABASE_URL=postgresql://[username]:[password]@localhost:5432/[database_name]
    JWT_SECRET="your-secret-key"
    PORT=3001
    ```
