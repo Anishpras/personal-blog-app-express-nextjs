@@ -55,10 +55,11 @@ export function Navbar() {
                 <Link href="/login">
                   <ShinyButton text="Log in" />
                 </Link>
-
-                <ShimmerButton className="shadow-2xl py-2">
-                  <Link href="/signup">Sign Up</Link>
-                </ShimmerButton>
+                <Link href="/signup">
+                  <ShimmerButton className="shadow-2xl py-2">
+                    Sign Up
+                  </ShimmerButton>
+                </Link>
               </>
             )}
           </div>

@@ -25,7 +25,7 @@ export default function Dashboard() {
       fetchUserPosts();
     }
   }, [session]);
-
+  console.log(content);
   const fetchUserPosts = async () => {
     setIsLoading(true);
     setError(null);

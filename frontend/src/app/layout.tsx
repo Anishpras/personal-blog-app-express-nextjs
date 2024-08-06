@@ -1,6 +1,10 @@
 import { AuthProvider } from "@/components/AuthProvider";
 import { Navbar } from "@/components/Navbar";
 import "./globals.css";
+import "@mantine/core/styles.css";
+import "@mantine/tiptap/styles.css";
+
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 export default function RootLayout({
   children,
 }: {
@@ -8,10 +12,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <ColorSchemeScript />
+      </head>
       <body>
         <AuthProvider>
           <Navbar />
-          <main>{children}</main>
+          <MantineProvider>
+            <main>{children}</main>
+          </MantineProvider>
         </AuthProvider>
       </body>
     </html>

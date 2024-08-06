@@ -31,9 +31,6 @@ export default function PostPage({ params }: { params: { id: string } }) {
   const router = useRouter();
 
   useEffect(() => {
-    session?.user?.id === post?.author?.id && setIsAuthor(true);
-  }, [post?.author?.id, session?.user?.id]);
-  useEffect(() => {
     const fetchPost = async () => {
       try {
         const fetchedPost = await getPostById(params.id);
