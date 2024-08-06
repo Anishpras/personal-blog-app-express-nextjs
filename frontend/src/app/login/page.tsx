@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
-  const { data: session, status } = useSession();
   const [password, setPassword] = useState("");
   const router = useRouter();
 
